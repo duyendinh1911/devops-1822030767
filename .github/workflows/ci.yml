@@ -1,0 +1,25 @@
+name: Website CI/CD
+
+on:
+  push:
+    branches: [ "develop", "main" ]
+  pull_request:
+    branches: [ "develop", "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Check HTML title
+        run: |
+          # Ví dụ lệnh kiểm tra thẻ title trong file index.html giống hình mẫu
+          if grep -q "<title>" index.html; then
+            echo "HTML title found."
+          else
+            echo "ERROR: index.html is missing a title tag"
+            exit 1
+          fi
